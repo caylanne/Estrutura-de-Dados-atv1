@@ -1,0 +1,101 @@
+public class Vetor {
+
+    private String[] elementos;
+    private int tamanho;
+
+    public Vetor(int capacidade) {
+        this.elementos = new String[capacidade];
+        this.tamanho = 0;
+    }
+
+    public int tamanho() {
+        return this.tamanho;
+    }
+
+    public void adiciona(String elemento) {
+        if (this.tamanho < this.elementos.length) {
+            this.elementos[this.tamanho] = elemento;
+            this.tamanho++;
+        } else {
+            throw new IllegalStateException("Vetor cheio!");
+        }
+    }
+
+    public String busca(int posicao) {
+        if (posicao >= 0 && posicao < this.tamanho) {
+            return this.elementos[posicao];
+        }
+        throw new IllegalArgumentException("Posição inválida");
+    }
+
+    public boolean busca(String elemento) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elementos[i].equals(elemento)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean estaVazia() {
+        return this.tamanho == 0;
+    }
+
+    public String ultimo() {
+        if (estaVazia()) {
+            throw new IllegalStateException("Vetor está vazio!");
+        }
+        return this.elementos[this.tamanho - 1];
+    }
+
+    public void imprimeUmPorLinha() {
+        for (int i = 0; i < this.tamanho; i++) {
+            System.out.println(this.elementos[i]);
+        }
+    }
+
+    public boolean contem(String elemento) {
+        return busca(elemento);
+    }
+
+    public void limpar() {
+        for (int i = 0; i < this.tamanho; i++) {
+            this.elementos[i] = null;
+        }
+        this.tamanho = 0;
+    }
+
+    public int contarOcorrencias(String elemento) {
+        int contador = 0;
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elementos[i].equals(elemento)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public boolean substituir(String antigo, String novo) {
+        for (int i = 0; i < this.tamanho; i++) {
+            if (this.elementos[i].equals(antigo)) {
+                this.elementos[i] = novo;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for (int i = 0; i < this.tamanho; i++) {
+            sb.append(this.elementos[i]);
+            if (i < this.tamanho - 1) {
+                sb.append(", ");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+}
