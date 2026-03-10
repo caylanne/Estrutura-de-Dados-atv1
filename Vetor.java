@@ -67,11 +67,13 @@ public class Vetor {
 
     public int contarOcorrencias(String elemento) {
         int contador = 0;
+
         for (int i = 0; i < this.tamanho; i++) {
             if (this.elementos[i].equals(elemento)) {
                 contador++;
             }
         }
+
         return contador;
     }
 
@@ -82,20 +84,112 @@ public class Vetor {
                 return true;
             }
         }
+
+        return false;
+    }
+
+    public void remove(int posicao) {
+
+        if (posicao < 0 || posicao >= this.tamanho) {
+            throw new IllegalArgumentException("Posição inválida");
+        }
+
+        for (int i = posicao; i < this.tamanho - 1; i++) {
+            this.elementos[i] = this.elementos[i + 1];
+        }
+
+        this.elementos[this.tamanho - 1] = null;
+        this.tamanho--;
+    }
+
+    public boolean remove(String elemento) {
+
+        for (int i = 0; i < this.tamanho; i++) {
+
+            if (this.elementos[i].equals(elemento)) {
+                remove(i);
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    public int indiceUltimo(String elemento) {
+
+        for (int i = this.tamanho - 1; i >= 0; i--) {
+
+            if (this.elementos[i].equals(elemento)) {
+                return i;
+            }
+
+        }
+
+        return -1;
+    }
+
+    public void removerTodos(String elemento) {
+
+        while (remove(elemento)) {
+        }
+
+    }
+
+    public boolean adicionarSeNaoExiste(String elemento) {
+
+        if (!contem(elemento)) {
+            adiciona(elemento);
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean inserirDepois(String referencia, String novoElemento) {
+
+        for (int i = 0; i < this.tamanho; i++) {
+
+            if (this.elementos[i].equals(referencia)) {
+
+                if (this.tamanho >= this.elementos.length) {
+                    throw new IllegalStateException("Vetor cheio!");
+                }
+
+                for (int j = this.tamanho; j > i + 1; j--) {
+                    this.elementos[j] = this.elementos[j - 1];
+                }
+
+                this.elementos[i + 1] = novoElemento;
+                this.tamanho++;
+
+                return true;
+            }
+
+        }
+
         return false;
     }
 
     @Override
     public String toString() {
+
         StringBuilder sb = new StringBuilder();
+
         sb.append("[");
+
         for (int i = 0; i < this.tamanho; i++) {
+
             sb.append(this.elementos[i]);
+
             if (i < this.tamanho - 1) {
                 sb.append(", ");
             }
+
         }
+
         sb.append("]");
+
         return sb.toString();
     }
 }
