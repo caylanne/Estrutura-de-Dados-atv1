@@ -12,12 +12,13 @@ public class Vetor {
         return this.tamanho;
     }
 
-    public void adiciona(String elemento) {
+    public boolean adiciona(String elemento) {
         if (this.tamanho < this.elementos.length) {
             this.elementos[this.tamanho] = elemento;
             this.tamanho++;
-        } else {
-            throw new IllegalStateException("Vetor cheio!");
+            return true;
+        } 
+        return false;
         }
     }
 
@@ -192,4 +193,5 @@ public class Vetor {
 
         return sb.toString();
     }
+
 }
